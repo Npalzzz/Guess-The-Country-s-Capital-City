@@ -6,7 +6,7 @@
     <title>Tebak Negara Berdasarkan Ibukota</title>
     
     <style>
-        /* --- KODE CSS --- */
+      
         body {
             font-family: sans-serif;
             display: flex;
@@ -40,7 +40,7 @@
 
         .options-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2 kolom */
+            grid-template-columns: 1fr 1fr; 
             gap: 10px;
             margin-top: 20px;
         }
@@ -59,14 +59,14 @@
             background-color: #cfd8e3;
         }
 
-        /* Kelas untuk Umpan Balik (Feedback) */
+        
         .correct {
-            background-color: #28a745; /* Hijau */
+            background-color: #28a745;
             color: white;
         }
 
         .wrong {
-            background-color: #dc3545; /* Merah */
+            background-color: #dc3545; 
             color: white;
         }
 
@@ -74,7 +74,7 @@
             font-weight: bold;
             margin-top: 20px;
             font-size: 1.2em;
-            min-height: 30px; /* Agar tidak terjadi pergeseran saat teks muncul */
+            min-height: 30px; 
         }
 
         #next-button {
@@ -91,7 +91,7 @@
         .hidden {
             display: none;
         }
-        /* --- AKHIR KODE CSS --- */
+      
     </style>
 </head>
 <body>
@@ -112,8 +112,7 @@
     </div>
     
     <script>
-        /* --- KODE JAVASCRIPT --- */
-        // Data pasangan Negara dan Ibukota
+      
         const countries = [
             { country: "Indonesia", capital: "Jakarta" },
             { country: "Malaysia", capital: "Kuala Lumpur" },
@@ -138,7 +137,7 @@
         let currentQuestion = null;
         let answered = false;
 
-        // Fungsi untuk mengacak array (Fisher-Yates)
+      
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -147,19 +146,19 @@
             return array;
         }
 
-        // Fungsi untuk mendapatkan pertanyaan baru
+      
         function getNewQuestion() {
-            // 1. Acak semua negara
+         
             const shuffledCountries = shuffleArray([...countries]);
 
-            // 2. Pilih negara pertama sebagai Jawaban Benar
+          
             const correctAnswer = shuffledCountries[0];
             currentQuestion = correctAnswer;
 
-            // 3. Ambil 3 negara lainnya sebagai Jawaban Salah
+           
             const incorrectAnswers = shuffledCountries.slice(1, 4).map(c => c.country);
 
-            // 4. Gabungkan dan acak semua pilihan jawaban
+        
             const options = shuffleArray([correctAnswer.country, ...incorrectAnswers]);
 
             return {
@@ -169,22 +168,22 @@
             };
         }
 
-        // Fungsi untuk menampilkan pertanyaan ke layar
+        
         function displayQuestion() {
             const data = getNewQuestion();
             
-            // Tampilkan Ibukota
+           
             capitalDisplay.textContent = data.capital;
             
-            // Reset kontainer pilihan jawaban
+         
             optionsContainer.innerHTML = '';
             
-            // Reset status dan tombol
+        
             feedbackElement.textContent = '';
             nextButton.classList.add('hidden');
             answered = false;
 
-            // Buat tombol untuk setiap pilihan
+          
             data.options.forEach(option => {
                 const button = document.createElement('button');
                 button.textContent = option;
@@ -194,13 +193,13 @@
             });
         }
 
-        // Fungsi untuk memeriksa jawaban
+    
         function checkAnswer(clickedButton, selectedCountry, correctCountry) {
-            // Hanya izinkan 1 jawaban per pertanyaan
+            
             if (answered) return;
             answered = true;
 
-            // Nonaktifkan semua tombol setelah menjawab
+          
             Array.from(optionsContainer.children).forEach(btn => {
                 btn.disabled = true;
             });
@@ -212,7 +211,7 @@
                 feedbackElement.textContent = '❌ Salah. Jawaban yang benar adalah ' + correctCountry + '.';
                 clickedButton.classList.add('wrong');
 
-                // Tandai jawaban yang benar dengan warna hijau
+               
                 Array.from(optionsContainer.children).forEach(btn => {
                     if (btn.textContent === correctCountry) {
                         btn.classList.add('correct');
@@ -220,16 +219,16 @@
                 });
             }
 
-            // Tampilkan tombol Lanjut
+         
             nextButton.classList.remove('hidden');
         }
 
-        // Event listener untuk tombol "Lanjut"
+       
         nextButton.addEventListener('click', displayQuestion);
 
-        // Inisialisasi game saat halaman dimuat
+        
         displayQuestion();
-        /* --- AKHIR KODE JAVASCRIPT --- */
+        
     </script>
 </body>
 </html>
